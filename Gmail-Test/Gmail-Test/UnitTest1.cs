@@ -48,16 +48,6 @@ namespace Gmail_Test
                 }
             }
 
-            
-
-
-
-
-            driver.Quit();
-
-
-
-
 
         }
     }
