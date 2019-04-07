@@ -23,7 +23,7 @@ namespace Gmail_Test
             element = driver.FindElement(By.XPath("//div[@id='identifierNext']"));
             element.Click();
             element = driver.FindElement(By.XPath("//input[@name='password']"));
-            element.SendKeys("Dennis_345");
+            element.SendKeys("Dennis_456");
             driver.FindElement(By.XPath("//div[@id='passwordNext']")).Click();
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.ElementExists(By.XPath("//span[@email='DENNIS.DIDULO@bd.com']")));
@@ -42,7 +42,7 @@ namespace Gmail_Test
                     drv.FindElement(locator);
                     return true;
                 }
-                catch (NoSuchElementException ex)
+                catch (NoSuchElementException)
                 {
                     return false;
                 }
@@ -50,5 +50,7 @@ namespace Gmail_Test
 
 
         }
+
+        
     }
 }
