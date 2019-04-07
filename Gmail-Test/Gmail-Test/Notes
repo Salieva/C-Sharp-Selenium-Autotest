@@ -1,0 +1,50 @@
+Вызубрить:
+
+IWebDriver driver = new ChromeDriver();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            //driver.Url = "http://gmail.com";
+            driver.Navigate().GoToUrl("http://gmail.com");
+-------------------------------------------------------------------------------------------	
+	    System.Threading.Thread.Sleep(9000);
+--------------------------------------------------------------------------------------------
+
+Когда элелемент (например, имейл) загружается очень медленно и Selenium начинает его искать слишком рано и, соответственно не может его найти, возникает ошибка. Чтобы избежать эту проблему, необходимо применить явное ожидание:
+            
+	    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.ElementExists(By.XPath("//span[@email='DENNIS.DIDULO@bd.com']")));
+
+В С# происходят изменения некоторых классов и это затронуло Expected Conditions. На данный момент, чтобы решить эту пргоблему, необходимо загрузить через Nuget специальную библиотеку:
+
+DotNetSeleniumExtras.WaitHelpers
+---------------------------------------------------------------------------------------------
+
+ 	    IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].click();", element);
+
+Если при нажатии на правую клавишу мыши (для инспектирования эелемента) выходит меню gmail instead (нет опции inspect element), это означает, что элемент невидимый: придется обходить Selenium и использовать Java Script чтобы найти этот элемент. Мы на время выходим из Selenium и передаем управление Java Script.
+
+--------------------------------------------------------------------------------------------------------------
+
+	    By loc = (By.XPath("//p[contains(text(), 'done')]"));
+            Assert.IsTrue(IsElementPresent(driver, loc));
+            System.Threading.Thread.Sleep(5000);
+            driver.Quit();
+
+            bool IsElementPresent(IWebDriver drv, By locator)
+            {
+                try
+                {
+                    drv.FindElement(locator);
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
